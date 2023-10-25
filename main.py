@@ -51,7 +51,7 @@ def inf(message):
     btn3 = types.KeyboardButton("Посмотреть список Архива")
     markup.row(btn1)
     markup.row(btn2, btn3)
-    bot.send_message(message.chat.id, f"выбери тип записей которые хочешь посмотерть", reply_markup=markup)
+    bot.send_message(message.chat.id, f"выбери тип записей которые хочешь посмотерть\nЕсли хочешь выйти напиши /exit", reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
 
@@ -63,7 +63,7 @@ def inf(message):
     btn3 = types.KeyboardButton("Удалить запись из  Архива")
     markup.row(btn1)
     markup.row(btn2, btn3)
-    bot.send_message(message.chat.id, f"выбери тип записи которую хочешь удалить", reply_markup=markup)
+    bot.send_message(message.chat.id, f"выбери тип записи которую хочешь удалить\nЕсли хочешь выйти напиши /exit", reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
 
@@ -75,7 +75,7 @@ def inf(message):
     btn2 = types.KeyboardButton("Добавить материал в архив")
     btn3 = types.KeyboardButton("Добавить материал в повторение")
     markup.row(btn2, btn3)
-    bot.send_message(message.chat.id, "ВЫберите то что хотите добавить", reply_markup=markup)
+    bot.send_message(message.chat.id, "ВЫберите то что хотите добавить\nЕсли хочешь выйти напиши /exit", reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
 
@@ -137,13 +137,6 @@ def on_click(message):
                          f"Вот твой список записей из архиива:\n \n {answ} \n\n Напиши id записи которую хочешь удалить\nесли нажал случайно /exit",
                          reply_markup=markup)
         bot.register_next_step_handler(message, del_archive1)
-
-
-
-
-
-
-
 
     elif message.text == "Посмотреть список записей которые в процессе изучения":
         answ = ''
@@ -255,6 +248,11 @@ def on_click(message):
                          reply_markup=markup)
         bot.register_next_step_handler(message, add_lerned1)
 
+    elif message.text == "/exit":
+        bot.send_message(message.chat.id, "Exit", reply_markup=markup)
+
+    elif message.text[0] == '/':
+        bot.register_next_step_handler(message, on_click)
 
     elif message.text == "":
         print("Main.py line 247")
